@@ -2,14 +2,23 @@ const jwt = require('jwt-simple');
 const config = require('../config');
 const User = require('../models/user');
 
-// Create jwt
+// Create JWT for the user
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
   // subject of token is the user.id, issued at timestamp is now
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 }
 
-exports.signup = (req, res, next) => {
+// User SIGNIN
+exports.signin = function (req, res, next) {
+  // User has had their username and password authenticated by requireSignin in router
+  // We now need to give them a token
+
+  res.send({ token: tokenForUser(req.user) })
+};
+
+// Create SIGNUP
+exports.signup = function (req, res, next) {
 
   const email = req.body.email;
   const password = req.body.password;
@@ -40,6 +49,5 @@ exports.signup = (req, res, next) => {
       // Respond to request indicating the user was created
       res.json({ token: tokenForUser(user) });
     });
-
   });
 };

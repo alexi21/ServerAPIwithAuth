@@ -32,6 +32,15 @@ userSchema.pre('save', function(next) {
   });
 });
 
+// Helper to compare candidatePassword with saved password in database
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+
+    callback(null, isMatch);
+  });
+};
+
 // Create the model class
 
 const User = mongoose.model('user', userSchema);
