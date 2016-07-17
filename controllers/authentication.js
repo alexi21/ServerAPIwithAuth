@@ -29,7 +29,7 @@ exports.signup = (req, res, next) => {
       if (err) { return next(err); }
 
       // Respond to request indicating the user was created
-      res.json({ success: true });
+      res.json(user);
     });
 
   });

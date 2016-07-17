@@ -4,27 +4,32 @@ const bcrypt = require('bcrypt-nodejs');
 
 // Define our user model
 // Ensure email is both unique and is saved in lower case
-
 const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String
 });
 
-// On Save Hook, encrypt password
 
-userSchema.pre('save', (next) => {
+// On Save Hook, encrypt password
+// Before saving a model, run this function
+userSchema.pre('save', function(next) {
+  // get access to the user model
   const user = this;
 
-  bcrypt.genSalt(10, (err, salt) => {
+  // generate a salt, which takes time so then run callback
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) { return next(err); }
 
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
+    // hash (encrypt) password using the salt, which takes time so then run cb
+    bcrypt.hash(user.password, salt, null, function(err, hash) {
       if (err) { return next(err); }
 
+      // overwrite plain text password with encrypted password
       user.password = hash;
+      // then save the model
       next();
-    })
-  })
+    });
+  });
 });
 
 // Create the model class
