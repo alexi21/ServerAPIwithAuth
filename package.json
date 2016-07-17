@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "serverAPI with auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexi21/ServerAPIwithAuth.git"
+  },
+  "author": "Alex Karolis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexi21/ServerAPIwithAuth/issues"
+  },
+  "homepage": "https://github.com/alexi21/ServerAPIwithAuth#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.4",
+    "morgan": "^1.7.0"
+  }
+}
