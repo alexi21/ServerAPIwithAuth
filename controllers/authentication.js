@@ -14,6 +14,7 @@ exports.signin = function (req, res, next) {
   // User has had their username and password authenticated by requireSignin in router
   // We now need to give them a token
 
+  // Passport supplies req.user
   res.send({ token: tokenForUser(req.user) })
 };
 
